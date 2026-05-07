@@ -1,27 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
-require("dotenv").config();
-
 const authRoutes = require("./routes/authRoutes");
 const testRoutes = require("./routes/testRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const userRoutes = require("./routes/userRoutes");
+require("dotenv").config();
 
 const app = express();
 
-app.use(
-    cors({
-        origin: [
-            "http://localhost:5173",
-            "https://team-task-manager-7ho2.vercel.app/",
-        ],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-    })
-);
+app.use(cors());
+
+app.options("*", cors());
 
 app.use(express.json());
 
