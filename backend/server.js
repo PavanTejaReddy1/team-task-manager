@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
@@ -13,22 +14,29 @@ const app = express();
 
 app.use(
     cors({
-        origin: "*",
+        origin: [
+            "http://localhost:5173",
+            "https://team-task-manager-7ho2.vercel.app/",
+        ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
 );
+
 app.use(express.json());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen
-
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {console.log("Connected to DB")})
-    .catch((error) => {console.log(error);});
+    .then(() => {
+        console.log("MongoDB Connected");
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 
 module.exports = app;
